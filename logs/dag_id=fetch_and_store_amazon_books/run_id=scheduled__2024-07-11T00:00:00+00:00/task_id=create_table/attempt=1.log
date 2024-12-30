@@ -1,0 +1,97 @@
+[2024-11-11T21:42:31.379+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2024-11-11T21:42:31.397+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: fetch_and_store_amazon_books.create_table scheduled__2024-07-11T00:00:00+00:00 [queued]>
+[2024-11-11T21:42:31.402+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: fetch_and_store_amazon_books.create_table scheduled__2024-07-11T00:00:00+00:00 [queued]>
+[2024-11-11T21:42:31.403+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 2
+[2024-11-11T21:42:31.409+0000] {taskinstance.py:2889} INFO - Executing <Task(PostgresOperator): create_table> on 2024-07-11 00:00:00+00:00
+[2024-11-11T21:42:31.423+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=220) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2024-11-11T21:42:31.425+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'fetch_and_store_amazon_books', 'create_table', 'scheduled__2024-07-11T00:00:00+00:00', '--job-id', '35', '--raw', '--subdir', 'DAGS_FOLDER/app.py', '--cfg-path', '/tmp/tmpwn79wawd']
+[2024-11-11T21:42:31.426+0000] {standard_task_runner.py:72} INFO - Started process 221 to run task
+[2024-11-11T21:42:31.426+0000] {standard_task_runner.py:105} INFO - Job 35: Subtask create_table
+[2024-11-11T21:42:31.452+0000] {task_command.py:467} INFO - Running <TaskInstance: fetch_and_store_amazon_books.create_table scheduled__2024-07-11T00:00:00+00:00 [running]> on host 1c507ca650f0
+[2024-11-11T21:42:31.492+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='fetch_and_store_amazon_books' AIRFLOW_CTX_TASK_ID='create_table' AIRFLOW_CTX_EXECUTION_DATE='2024-07-11T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-07-11T00:00:00+00:00'
+[2024-11-11T21:42:31.493+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2024-11-11T21:42:31.493+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2024-11-11T21:42:31.493+0000] {logging_mixin.py:190} INFO - Current task name:create_table state:running start_date:2024-11-11 21:42:31.398198+00:00
+[2024-11-11T21:42:31.493+0000] {logging_mixin.py:190} INFO - Dag name:fetch_and_store_amazon_books and current dag run status:running
+[2024-11-11T21:42:31.494+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2024-11-11T21:42:31.494+0000] {sql.py:278} INFO - Executing: 
+    CREATE TABLE IF NOT EXISTS books (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        authors TEXT,
+        price TEXT,
+        rating TEXT
+    );
+    
+[2024-11-11T21:42:31.498+0000] {base.py:84} INFO - Retrieving connection 'books_connection'
+[2024-11-11T21:42:31.501+0000] {base.py:84} INFO - Retrieving connection 'books_connection'
+[2024-11-11T21:43:42.999+0000] {local_task_job_runner.py:346} WARNING - State of this instance has been externally set to None. Terminating instance.
+[2024-11-11T21:43:43.004+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2024-11-11T21:43:43.007+0000] {process_utils.py:132} INFO - Sending 15 to group 221. PIDs of all processes in the group: [221]
+[2024-11-11T21:43:43.008+0000] {process_utils.py:87} INFO - Sending the signal 15 to group 221
+[2024-11-11T21:43:46.519+0000] {taskinstance.py:3093} ERROR - Received SIGTERM. Terminating subprocesses.
+[2024-11-11T21:43:46.583+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 417, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 284, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 485, in run
+    with self._create_autocommit_connection(autocommit) as conn:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 609, in _create_autocommit_connection
+    with closing(self.get_conn()) as conn:
+                 ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/postgres/hooks/postgres.py", line 181, in get_conn
+    self.conn = psycopg2.connect(**conn_args)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "172.20.0.3", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3162, in _execute_task_with_callbacks
+    with contextlib.suppress(jinja2.TemplateSyntaxError, jinja2.UndefinedError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 440, in __init__
+    def __init__(self, *exceptions):
+    
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3095, in signal_handler
+    raise AirflowTaskTerminated("Task received SIGTERM signal")
+airflow.exceptions.AirflowTaskTerminated: Task received SIGTERM signal
+[2024-11-11T21:43:46.614+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2024-11-11T21:43:46.614+0000] {logging_mixin.py:190} INFO - Task start:2024-11-11 21:42:31.398198+00:00 end:2024-11-11 21:43:46.604529+00:00 duration:75.206331
+[2024-11-11T21:43:46.615+0000] {logging_mixin.py:190} INFO - Task:<Task(PostgresOperator): create_table> dag:<DAG: fetch_and_store_amazon_books> dagrun:<DagRun fetch_and_store_amazon_books @ 2024-07-11 00:00:00+00:00: scheduled__2024-07-11T00:00:00+00:00, state:running, queued_at: 2024-11-11 21:42:24.878310+00:00. externally triggered: False>
+[2024-11-11T21:43:46.616+0000] {logging_mixin.py:190} INFO - Failure caused by Task received SIGTERM signal
+[2024-11-11T21:43:46.617+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=fetch_and_store_amazon_books, task_id=create_table, run_id=scheduled__2024-07-11T00:00:00+00:00, execution_date=20240711T000000, start_date=20241111T214231, end_date=20241111T214346
+[2024-11-11T21:43:46.646+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2024-11-11T21:43:46.750+0000] {process_utils.py:80} INFO - Process psutil.Process(pid=221, status='terminated', exitcode=2, started='21:42:31') (221) terminated with exit code 2
